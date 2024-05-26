@@ -1,5 +1,9 @@
 package leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 /*
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 Symbol       Value
@@ -42,11 +46,38 @@ It is guaranteed that s is a valid roman numeral in the range [1, 3999].
  */
 public class Lesson13_RomanToInteger
 {
-    public int romanToInt(String s) {
-        int n = s.length();
-        return n;
-    }
-    public static void main(String[] args) {
+    public static int romanToInt(String s) {
+        Map<Character, Integer> roman = new HashMap<>();
+        roman.put('I', 1);
+        roman.put('V', 5);
+        roman.put('X', 10);
+        roman.put('L', 50);
+        roman.put('C', 100);
+        roman.put('D', 500);
+        roman.put('M', 1000);
 
+        int result = 0;
+        int prev = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int curr = roman.get(s.charAt(i));
+            if (curr < prev) {
+                result -= curr;
+            } else {
+                result += curr;
+            }
+            prev = curr;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap vao chuoi Roman: ");
+        String str = sc.nextLine();
+        int result = romanToInt(str);
+        if (result != -1){
+            System.out.println(">> Output: " + result);
+        }
     }
 }
